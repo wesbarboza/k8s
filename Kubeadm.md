@@ -1,67 +1,17 @@
-## Criando cluster kubernetes 1.22 com kubeadm
+# Criando cluster kubernetes 1.22 com kubeadm
 
-Cenário:
+## Cenário:
 
-K8s Control Panel
+1. K8s Control Panel
+2. K8s Worker1   
+3. K8s Worker 2
 
-K8s Worker1   K8s Worker 2
+*ubuntu-20.04, 4GB ram, 2 CPU*
 
-Tree servers
-one control plane and two worker nodes
-
-Control:
-```shell
-cloud_user@k8s-control:~$ df -h
-Filesystem      Size  Used Avail Use% Mounted on
-udev            1.9G     0  1.9G   0% /dev
-tmpfs           388M  1.4M  387M   1% /run
-/dev/nvme0n1p1   20G  4.2G   16G  22% /
-tmpfs           1.9G     0  1.9G   0% /dev/shm
-tmpfs           5.0M     0  5.0M   0% /run/lock
-tmpfs           1.9G     0  1.9G   0% /sys/fs/cgroup
-/dev/loop0       56M   56M     0 100% /snap/core18/1988
-/dev/loop1       34M   34M     0 100% /snap/amazon-ssm-agent/3552
-/dev/loop3       99M   99M     0 100% /snap/core/10823
-/dev/loop5       56M   56M     0 100% /snap/core18/2246
-/dev/loop6      100M  100M     0 100% /snap/core/11993
-/dev/loop4       25M   25M     0 100% /snap/amazon-ssm-agent/4046
-tmpfs           388M     0  388M   0% /run/user/1001
-shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/sandboxes/d9a637db538f37e6b9c87a1d2b56b0fcefa7670145ca91e32c134458dce73494/shm
-shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/sandboxes/9edad6bfbce82b24d59044e142c90cd968be693ab74cdb859f4027f798dc04a0/shm
-shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/sandboxes/f547f578f2aa6d7bf19d6777dfd992d3c72e282935e1ced641e4b88baf1c3fec/shm
-shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/sandboxes/dade6fea7e0db2f7514625a5192a962652b9c0c6344e4dde9033fdf5a2913794/shm
-shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/sandboxes/4dffc9c9fe3372f89855e1cda62367f1b2da3fc69f42849fa0848cf3
-```
-2 processadores 
-4 GB RAM
-
-Worker
-cloud_user@k8s-worker1:~$ df -h
-Filesystem      Size  Used Avail Use% Mounted on
-udev            1.9G     0  1.9G   0% /dev
-tmpfs           388M  760K  387M   1% /run
-/dev/nvme0n1p1   20G  3.2G   17G  17% /
-tmpfs           1.9G     0  1.9G   0% /dev/shm
-tmpfs           5.0M     0  5.0M   0% /run/lock
-tmpfs           1.9G     0  1.9G   0% /sys/fs/cgroup
-/dev/loop0       34M   34M     0 100% /snap/amazon-ssm-agent/3552
-/dev/loop1       99M   99M     0 100% /snap/core/10823
-/dev/loop2       56M   56M     0 100% /snap/core18/1988
-/dev/loop5       56M   56M     0 100% /snap/core18/2246
-/dev/loop6      100M  100M     0 100% /snap/core/11993
-/dev/loop3       25M   25M     0 100% /snap/amazon-ssm-agent/4046
-tmpfs           388M     0  388M   0% /run/user/1001
-
-2 processadores
-4GB RAM
-
-q
-
-
-Install Packages
+Install Packages *cluster*
 Initialize the cluster
-Install the Calico network add-on
-Join the worker nodes to the cluster
+Install the Calico network add-on *Control*
+Join the worker nodes to the cluster *Workers*
 
 
 ## 1
@@ -86,9 +36,9 @@ Use kubectl get nodesno nó do plano de controle para verificar se todos os trê
 
 ---------
 Pacotes de instalação
-# Faça login no nó do plano de controle (Observação: as etapas a seguir devem ser executadas em todos os três nós.).
+## Faça login no nó do plano de controle (Observação: as etapas a seguir devem ser executadas em todos os três nós.).
 
-# Crie um arquivo de configuração para o containerd:
+#### Crie um arquivo de configuração para o containerd:
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
