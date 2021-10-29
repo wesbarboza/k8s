@@ -8,10 +8,10 @@
 
 *ubuntu-20.04, 4GB ram, 2 CPU*
 
-Install Packages *cluster*
-Initialize the cluster
-Install the Calico network add-on *Control*
-Join the worker nodes to the cluster *Workers*
+- Install Packages *cluster*
+- Initialize the cluster
+- Install the Calico network add-on *Control*
+- Join the worker nodes to the cluster *Workers*
 
 
 ## 1
@@ -35,29 +35,34 @@ Use kubectl get nodesno nó do plano de controle para verificar se todos os trê
 
 
 ---------
-Pacotes de instalação
-## Faça login no nó do plano de controle (Observação: as etapas a seguir devem ser executadas em todos os três nós.).
+## Pacotes de instalação
+### Faça login no nó do plano de controle (Observação: as etapas a seguir devem ser executadas em todos os três nós.).
 
 #### Crie um arquivo de configuração para o containerd:
+```shell
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
 EOF
+```
 
-
-# Módulos de carga:
+### Módulos de carga:
+```shell
 sudo modprobe overlay
 sudo modprobe br_netfilter
+```
 
-# Defina as configurações do sistema para a rede Kubernetes:
+### Defina as configurações do sistema para a rede Kubernetes:
+```shell
 cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
+```
 
-# Aplicar novas configurações:
-sudo sysctl --system
+### Aplicar novas configurações:
+> sudo sysctl --system
 
 # Instale o containerd:
 sudo apt-get update && sudo apt-get install -y containerd
