@@ -10,6 +10,7 @@ Tree servers
 one control plane and two worker nodes
 
 Control:
+```shell
 cloud_user@k8s-control:~$ df -h
 Filesystem      Size  Used Avail Use% Mounted on
 udev            1.9G     0  1.9G   0% /dev
@@ -30,7 +31,7 @@ shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/
 shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/sandboxes/f547f578f2aa6d7bf19d6777dfd992d3c72e282935e1ced641e4b88baf1c3fec/shm
 shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/sandboxes/dade6fea7e0db2f7514625a5192a962652b9c0c6344e4dde9033fdf5a2913794/shm
 shm              64M     0   64M   0% /run/containerd/io.containerd.grpc.v1.cri/sandboxes/4dffc9c9fe3372f89855e1cda62367f1b2da3fc69f42849fa0848cf3
-
+```
 2 processadores 
 4 GB RAM
 
